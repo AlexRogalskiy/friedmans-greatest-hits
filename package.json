@@ -1,5 +1,5 @@
 {
-	"name": "hockey-feeds",
+	"name": "friedmans-greatest-hits",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
