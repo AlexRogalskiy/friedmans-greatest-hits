@@ -2,8 +2,11 @@
 	import type { Load } from '@sveltejs/kit'
 
 	export const load: Load = async ({ fetch }) => {
-		const podcasts = await fetch('/podcasts.json').then((res) => res.json())
+		const podcasts = await fetch('/podcasts.json', { credentials: 'omit' }).then((res) =>
+			res.json()
+		)
 		return {
+			maxage: 60,
 			props: {
 				podcasts
 			}
@@ -12,6 +15,8 @@
 </script>
 
 <script>
+	import SEO from '$lib/SEO.svelte'
+
 	import Clipboard from 'svelte-clipboard'
 
 	export let podcasts
@@ -30,6 +35,11 @@
 
 <svelte:head>
 	<title>Friedman's Greatest Hits</title>
+	<SEO
+		title="Friedman's Greatest Hits"
+		description="A curated feed of podcast episodes featuring Elliotte Friedman"
+		image="https://fgh.mattjennings.io/fgh.jpeg"
+	/>
 </svelte:head>
 
 <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
@@ -37,16 +47,21 @@
 		<div class="overflow-hidden rounded-md h-48 w-48 shadow-md">
 			<img class="object-cover h-full w-full" src="/fgh.jpeg" alt="the friedman" />
 		</div>
-		<h1 class="mt-4 text-3xl font-semibold text-gray-800 text-center">Friedman's Greatest Hits</h1>
-		<p class="mt-2 text-xl text-gray-800 text-center">All Friedman, all the time</p>
-		<p class="my-8 text-lg text-gray-500 max-w-md text-center">
-			A curated feed of podcast episodes that Elliotte regularly appears on. Choose which podcasts
-			you prefer and then add the link below to your podcaster.
-		</p>
+		<div class="pb-8">
+			<h1 class="mt-4 text-3xl font-semibold text-gray-800 text-center">
+				Friedman's Greatest Hits
+			</h1>
+			<p class="mt-2 text-xl text-gray-700 text-center">
+				A curated feed of podcast episodes featuring Elliotte Friedman
+			</p>
+		</div>
 
 		<!-- link input -->
 		<div class="w-full">
-			<div class="mt-1 flex rounded-md shadow-sm">
+			<p class="text-gray-500 text-sm text-left ml-1 mb-1">
+				Select your preferred podcasts and then subscribe to this URL
+			</p>
+			<div class="flex rounded-md shadow-sm">
 				<Clipboard let:copy text={link} on:copy={() => (copied = true)}>
 					<div class="relative flex items-stretch flex-grow focus-within:z-10">
 						<input
