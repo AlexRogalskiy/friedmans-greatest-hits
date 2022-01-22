@@ -6,7 +6,7 @@ import type { Item } from 'podcast'
 
 export const get: RequestHandler = async () => {
 	const feedData = await Promise.all(
-		Object.entries(podcasts).map(([name, { url, filter, teams }]) =>
+		Object.entries(podcasts).map(([name, { url, filter, team }]) =>
 			fetch(url)
 				.then((r) => r.text())
 				.then((xml) => {
@@ -33,7 +33,7 @@ export const get: RequestHandler = async () => {
 						title: document.querySelector('title').textContent,
 						description: document.querySelector('description').textContent,
 						img: document.querySelector('image url').textContent,
-						teams,
+						team,
 						weeklyOccurrence
 					}
 				})

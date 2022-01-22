@@ -41,7 +41,7 @@
 		<p class="mt-2 text-xl text-gray-800 text-center">All Friedman, all the time</p>
 		<p class="my-8 text-lg text-gray-500 max-w-md text-center">
 			A curated feed of podcast episodes that Elliotte regularly appears on. Choose which podcasts
-			you like and then add the link below to your podcaster.
+			you prefer and then add the link below to your podcaster.
 		</p>
 
 		<!-- link input -->
@@ -90,7 +90,7 @@
 					<div class="w-16 flex-shrink-0">
 						<img src={podcast.img} alt={podcast.title} />
 					</div>
-					<div class="px-2 py-1">
+					<div class="px-2 py-1 flex-1">
 						<h2 class="font-medium">
 							{podcast.title}
 						</h2>
@@ -105,6 +105,9 @@
 								Daily
 							{/if}
 						</p>
+					</div>
+					<div class="w-16 h-full flex-shrink-0 flex items-center">
+						<img src={`/logos/${podcast.team ?? 'NHL'}.svg`} alt={podcast.team} />
 					</div>
 				</button>
 			{/each}
