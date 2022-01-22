@@ -20,9 +20,12 @@
 
 	$: copied === true && setTimeout(() => (copied = false), 2000)
 
-	let selected = ['32-thoughts', 'jeff-marek-show', 'tim-and-friends']
+	let selected = ['32-thoughts', 'jeff-marek-show']
 
-	$: link = 'https://fgh.mattjennings.io/feed.xml?' + selected.sort().join('&')
+	$: link =
+		(import.meta.env.DEV
+			? 'http://localhost:3000/feed.xml?'
+			: 'https://fgh.mattjennings.io/feed.xml?') + selected.sort().join('&')
 </script>
 
 <svelte:head>
@@ -37,8 +40,8 @@
 		<h1 class="mt-4 text-3xl font-semibold text-gray-800 text-center">Friedman's Greatest Hits</h1>
 		<p class="mt-2 text-xl text-gray-800 text-center">All Friedman, all the time</p>
 		<p class="my-8 text-lg text-gray-500 max-w-md text-center">
-			A curated feed of podcast episodes that Elliotte appears on. Choose which podcasts you like
-			and then add the link below to your podcaster.
+			A curated feed of podcast episodes that Elliotte regularly appears on. Choose which podcasts
+			you like and then add the link below to your podcaster.
 		</p>
 
 		<!-- link input -->
@@ -73,7 +76,7 @@
 			{#each podcasts as podcast}
 				{@const isSelected = selected.includes(podcast.slug)}
 				<button
-					class="flex items-stretch text-left border border-gray-300 rounded-md transition-colors duration-100"
+					class="flex items-stretch overflow-hidden text-left border border-gray-300 rounded-md transition-colors duration-100"
 					class:selected={isSelected}
 					aria-selected={isSelected}
 					on:click={() => {
@@ -95,7 +98,7 @@
 							{#if podcast.weeklyOccurrence <= 0.25}
 								Monthly
 							{:else if podcast.weeklyOccurrence <= 0.4}
-								Bi-weekly
+								Biweekly
 							{:else if podcast.weeklyOccurrence <= 2}
 								Weekly
 							{:else}

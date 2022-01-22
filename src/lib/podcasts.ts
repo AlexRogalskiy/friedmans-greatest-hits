@@ -2,7 +2,7 @@ import type { Item } from 'podcast'
 import he from 'he'
 import { parseHTML } from 'linkedom'
 
-const filter = (item) => item.title.match(/friedman/gi) || item.description.match(/friedman/gi)
+const filter = (item) => item.title?.match(/friedman/gi) || item.description?.match(/friedman/gi)
 
 interface Podcast {
 	url: string
@@ -37,6 +37,16 @@ export const podcasts: Record<string, Podcast> = {
 		url: 'https://feeds.simplecast.com/HAqm0QNa',
 		filter,
 		teams: ['CGY']
+	},
+	'the-fan-morning-show': {
+		url: 'https://podcast.sportsnet.ca/shows/good-show/feed/podcast/',
+		filter,
+		teams: ['TOR']
+	},
+	'darren-daunic-chase': {
+		url: 'https://audioboom.com/channels/5008648.rss',
+		filter,
+		teams: ['NSH']
 	}
 }
 

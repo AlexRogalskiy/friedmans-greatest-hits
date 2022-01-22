@@ -3,9 +3,10 @@ import { getEpisodesFromXml, podcasts } from '$lib/podcasts'
 import { parseHTML } from 'linkedom'
 import { add, format, isBefore } from 'date-fns'
 import type { Item } from 'podcast'
+
 export const get: RequestHandler = async () => {
 	const feedData = await Promise.all(
-		Object.entries(podcasts).map(([name, { url, filter, teams }], i) =>
+		Object.entries(podcasts).map(([name, { url, filter, teams }]) =>
 			fetch(url)
 				.then((r) => r.text())
 				.then((xml) => {
@@ -16,6 +17,10 @@ export const get: RequestHandler = async () => {
 					)
 
 					const episodesWithFriedman = episodes.filter(filter)
+
+					if (episodesWithFriedman.length === 0) {
+						return null
+					}
 
 					const weeklyOccurrence = getWeeklyOccurrence(
 						new Date(episodes[0].date),
@@ -33,7 +38,7 @@ export const get: RequestHandler = async () => {
 					}
 				})
 		)
-	)
+	).then((data) => data.filter(Boolean))
 
 	return {
 		status: 200,
