@@ -7,7 +7,7 @@ const filter = (item) => item.title?.match(/friedman/gi) || item.description?.ma
 interface Podcast {
 	url: string
 	filter: (item: Partial<Item>) => boolean
-	teams?: string[]
+	team?: string
 }
 
 export const podcasts: Record<string, Podcast> = {
@@ -19,34 +19,39 @@ export const podcasts: Record<string, Podcast> = {
 		url: 'https://podcast.sportsnet.ca/shows/hockey-central/feed/podcast/',
 		filter
 	},
-	'donnie-and-dhali': {
-		url: 'https://www.spreaker.com/show/4836063/episodes/feed',
-		filter,
-		teams: ['VAN']
-	},
 	'tim-and-friends': {
 		url: 'https://feeds.simplecast.com/EjXSVgwK',
 		filter
 	},
+	'the-fan-morning-show': {
+		url: 'https://podcast.sportsnet.ca/shows/good-show/feed/podcast/',
+		filter,
+		team: 'TOR'
+	},
+	'donnie-and-dhali': {
+		url: 'https://www.spreaker.com/show/4836063/episodes/feed',
+		filter,
+		team: 'VAN'
+	},
 	'oilers-now-bob-stauffer': {
 		url: 'https://www.omnycontent.com/d/playlist/fdc2ad13-d199-4e97-b2db-a59300cb6cc2/5f246e03-36fc-496e-ad5f-a5bc0108b5f0/2e927caf-b673-4c33-9ae0-a5bc010933fc/podcast.rss',
 		filter,
-		teams: ['EDM']
+		team: 'EDM'
 	},
 	'flames-talk': {
 		url: 'https://feeds.simplecast.com/HAqm0QNa',
 		filter,
-		teams: ['CGY']
-	},
-	'the-fan-morning-show': {
-		url: 'https://podcast.sportsnet.ca/shows/good-show/feed/podcast/',
-		filter,
-		teams: ['TOR']
+		team: 'CGY'
 	},
 	'darren-daunic-chase': {
 		url: 'https://audioboom.com/channels/5008648.rss',
 		filter,
-		teams: ['NSH']
+		team: 'NSH'
+	},
+	'the-instigators': {
+		url: 'https://www.omnycontent.com/d/playlist/4b5f9d6d-9214-48cb-8455-a73200038129/00af1d7c-dcc0-49fc-87fe-a92b00371885/92403436-0131-415a-b1b2-a92b00371885/podcast.rss',
+		filter,
+		team: 'BUF'
 	}
 }
 
